@@ -2,7 +2,7 @@ from langchain_openai import ChatOpenAI
 import os
 from pathlib import Path
 
-from tools.math_tools import add_numbers
+from tools import tool_list
 
 def get_system_prompt():
     prompt_path = Path(__file__).parent.parent / "prompts" / "system.txt"
@@ -17,5 +17,5 @@ def get_llm():
         api_key="ollama",
         model="llama3.1:8b",
     )
-    llm = llm.bind_tools([add_numbers])
+    llm = llm.bind_tools(tool_list)
     return llm

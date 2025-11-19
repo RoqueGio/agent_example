@@ -11,7 +11,7 @@ from graph.agent import create_agent_graph
 # ------------- #
 import os
 from phoenix.otel import register
-from openinference.instrumentation.langchain import LangChainInstrumentor
+from openinference.instrumentation.openai import OpenAIInstrumentor
 
 collector_endpoint = os.environ.get("PHOENIX_COLLECTOR_ENDPOINT", "http://localhost:6006/v1/traces")
 tracer_provider = register(
@@ -20,7 +20,7 @@ tracer_provider = register(
     auto_instrument=True,
     batch=True
 )
-LangChainInstrumentor().instrument(tracer_provider=tracer_provider)
+OpenAIInstrumentor().instrument(tracer_provider=tracer_provider)
 
 # ------------- #
 # FastAPI Setup #
