@@ -17,5 +17,5 @@ def get_llm():
         api_key="ollama",
         model="llama3.1:8b",
     )
-    llm.bind_tools([add_numbers])
+    llm = llm.bind_tools([add_numbers])
     return llm
