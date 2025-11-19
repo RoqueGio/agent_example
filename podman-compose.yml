@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   ollama:
-    image: ollama/ollama:latest
+    image: ollama/ollama:0.12.11
     container_name: ollama
     ports:
       - "11434:11434"
@@ -15,7 +15,7 @@ services:
       - label=disable
 
   phoenix:
-    image: arizephoenix/phoenix:latest
+    image: arizephoenix/phoenix:version-12.14.2
     container_name: phoenix
     ports:
       - "6006:6006"
