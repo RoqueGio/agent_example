@@ -14,13 +14,27 @@ services:
     security_opt:
       - label=disable
 
+  phoenix:
+    image: arizephoenix/phoenix:latest
+    container_name: phoenix
+    ports:
+      - "6006:6006"
+      - "4317:4317"
+    volumes:
+      - phoenix-data:/mnt/data
+    environment:
+      - PHOENIX_WORKING_DIR=/mnt/data
+    restart: unless-stopped
+
   agent:
     build: .
     container_name: llm-agent
     depends_on:
       - ollama
+      - phoenix
     environment:
-      - OLLAMA_HOST=http://ollama:11434
+      - OLLAMA_HOST=http://ollama:11434/v1
+      - PHOENIX_COLLECTOR_ENDPOINT=http://phoenix:6006/v1/traces
     ports:
       - "8000:8000"
     restart: unless-stopped
@@ -29,3 +43,4 @@ services:
 
 volumes:
   ollama-data:
+  phoenix-data:

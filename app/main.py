@@ -3,10 +3,28 @@ import os
 import requests
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from typing import List
 from langchain_core.messages import HumanMessage
 from graph.agent import create_agent_graph
 
+# ------------- #
+# Phoenix Setup #
+# ------------- #
+import os
+from phoenix.otel import register
+from openinference.instrumentation.langchain import LangChainInstrumentor
+
+collector_endpoint = os.environ.get("PHOENIX_COLLECTOR_ENDPOINT", "http://localhost:6006/v1/traces")
+tracer_provider = register(
+    endpoint=collector_endpoint,
+    project_name="default",
+    auto_instrument=True,
+    batch=True
+)
+LangChainInstrumentor().instrument(tracer_provider=tracer_provider)
+
+# ------------- #
+# FastAPI Setup #
+# ------------- #
 app = FastAPI(title="LLM Agent API", version="1.0")
 
 # Esperar Ollama al inicio

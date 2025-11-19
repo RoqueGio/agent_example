@@ -1,4 +1,4 @@
-from langchain_ollama import ChatOllama
+from langchain_openai import ChatOpenAI
 import os
 from pathlib import Path
 
@@ -11,13 +11,11 @@ def get_system_prompt():
     return prompt_path.read_text(encoding="utf-8").strip()
 
 def get_llm():
-    host = os.getenv("OLLAMA_HOST", "http://localhost:11434")
-    # system_prompt = get_system_prompt()
-    llm = ChatOllama(
-        model="llama3.1:8b",
+    host = os.getenv("OLLAMA_HOST", "http://localhost:11434/v1")
+    llm = ChatOpenAI(
         base_url=host,
-        temperature=0,
-        # system=system_prompt
+        api_key="ollama",
+        model="llama3.1:8b",
     )
     llm.bind_tools([add_numbers])
     return llm
