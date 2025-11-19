@@ -1,4 +1,4 @@
-# LLM Agent con FastAPI + LangGraph + Ollama
+# LLM Agent con FastAPI + LangGraph + Ollama + Phoenix
 
 ## Iniciar
 
@@ -20,10 +20,16 @@ podman exec -it ollama ollama pull llama3.1:8b
 ```
 
 ## Probar
-Ingresar a la siguiente URL en un navegador.
+Para probar la API con FastAPI:
 
 ```
 http://127.0.0.1:8000/docs
+```
+
+Para observability con Phoenix:
+
+```
+http://127.0.0.1:6006
 ```
 
 ---
