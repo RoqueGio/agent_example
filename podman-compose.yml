@@ -9,6 +9,10 @@ services:
     volumes:
       - ollama-data:/root/.ollama
     restart: unless-stopped
+    devices:
+      - nvidia.com/gpu=all
+    security_opt:
+      - label=disable
 
   agent:
     build: .
